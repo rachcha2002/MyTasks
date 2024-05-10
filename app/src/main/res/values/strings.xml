@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyTasks</string>
+    <string name="main_header">All Tasks</string>
+    <string name="add_btn_text">Add Task</string>
+    <string name="calender">Calender</string>
+    <string name="no_data_txt">No Data</string>
 </resources>

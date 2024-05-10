@@ -13,9 +13,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height= "wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp">
+        android:layout_marginStart="16dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +42,7 @@
             android:layout_height="30dp"
             android:layout_gravity="end|center"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/calendar"
             android:contentDescription="@string/calender" />
 
@@ -63,7 +64,7 @@
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/no_data_txt"/>
+                android:contentDescription="@string/no_data_txt" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/taskRecycler"
