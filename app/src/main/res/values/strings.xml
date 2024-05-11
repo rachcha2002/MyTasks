@@ -1,7 +1,17 @@
 <resources>
     <string name="app_name">MyTasks</string>
-    <string name="main_header">All Tasks</string>
-    <string name="add_btn_text">Add Task</string>
+    <string name="main_header">My Tasks</string>
+    <string name="add_btn_text">+ Add Task</string>
     <string name="calender">Calender</string>
     <string name="no_data_txt">No Data</string>
+
+    <string name="delete_confirmation">Confirmation</string>
+    <string name="sureToDelete">Are you sure you want to delete the task</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirmation">Completed the task!..</string>
+    <string name="sureToMarkAsComplete">Are you sure you want to mark this task as completed.</string>
+    <string name="congrats_you_have_completed_the_task_successfully">Congrats!…You have completed the task successfully..</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
