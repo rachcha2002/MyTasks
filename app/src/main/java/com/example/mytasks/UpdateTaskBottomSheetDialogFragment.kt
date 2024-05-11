@@ -1,4 +1,7 @@
+package com.example.mytasks
+
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -7,11 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.example.mytasks.MainActivityData
-import com.example.mytasks.R
-import com.example.mytasks.database.Task
 import com.example.mytasks.database.TaskRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -78,20 +77,31 @@ class UpdateTaskBottomSheetDialogFragment(private val taskId: Int, private val r
         val updatedTime = updateTaskTime.text.toString()
         val updatedPriority = updateTaskPriority.text.toString()
 
-
-            CoroutineScope(Dispatchers.Main).launch {
-                withContext(Dispatchers.IO) {
-
-                    repository.updateAnExistingRow(taskId,updatedTitle,updatedDescription,updatedDate,updatedTime,updatedPriority)
-                }
-                val newData = withContext(Dispatchers.IO) {
-                    repository.getAllTasksList()
-                }
-                // Update the ViewModel with the new data
-                viewModel.setData(newData)
-                dismiss()
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.IO) {
+                repository.updateAnExistingRow(taskId, updatedTitle, updatedDescription, updatedDate, updatedTime, updatedPriority)
             }
+            val newData = withContext(Dispatchers.IO) {
+                repository.getAllTasksList()
+            }
+            // Update the ViewModel with the new data
+            viewModel.setData(newData)
+            dismiss()
 
+            // Show success AlertDialog
+            showSuccessDialog()
+        }
+    }
+
+    private fun showSuccessDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Task Updated Successfully")
+        builder.setMessage("Your task has been updated successfully.")
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun showDatePicker() {

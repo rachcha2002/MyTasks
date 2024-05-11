@@ -1,22 +1,18 @@
 package com.example.mytasks.adapters
 
-import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytasks.CompletionDialogFragment
 import com.example.mytasks.MainActivityData
 import com.example.mytasks.R
+import com.example.mytasks.UpdateTaskBottomSheetDialogFragment
 import com.example.mytasks.database.Task
 import com.example.mytasks.database.TaskRepository
 import kotlinx.coroutines.CoroutineScope

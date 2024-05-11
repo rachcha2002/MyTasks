@@ -57,11 +57,11 @@ class AddTaskBottomSheetDialogFragment(private val viewModel: MainActivityData,p
             val title = addTaskTitle.text.toString()
             val description = addTaskDescription.text.toString()
             val date = taskDateEditText.text.toString()
-            val time = taskTimeEditText.text.toString()
+            val lastAlarm = taskTimeEditText.text.toString()
             val priority = taskPriority.text.toString()
 
             // Create a Task object
-            val task = Task(title, date, description, priority = priority)
+            val task = Task(title, date, description, priority = priority, lastAlarm = lastAlarm)
 
             // Perform save operation using coroutines
             CoroutineScope(Dispatchers.IO).launch {

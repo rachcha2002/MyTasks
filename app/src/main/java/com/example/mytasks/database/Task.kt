@@ -21,12 +21,6 @@ class Task(
     @ColumnInfo(name = "priority")
     var priority: String? = null,
 
-    @ColumnInfo(name = "firstAlarmTime")
-    var firstAlarmTime: String? = null,
-
-    @ColumnInfo(name = "secondAlarmTime")
-    var secondAlarmTime: String? = null,
-
     @ColumnInfo(name = "lastAlarm")
     var lastAlarm: String? = null,
 
