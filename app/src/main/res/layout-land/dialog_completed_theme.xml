@@ -4,11 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/black"
-        android:alpha="0.5"/>
+    
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -52,7 +48,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/closeButton"
+            android:id="@+id/closeButtonCom"
             android:textSize="14sp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"

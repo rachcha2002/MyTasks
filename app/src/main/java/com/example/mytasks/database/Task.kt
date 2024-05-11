@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 
 @Entity
-class Task (
+class Task(
     @ColumnInfo(name = "taskTitle")
     var taskTitle: String? = null,
 
@@ -30,7 +30,7 @@ class Task (
     @ColumnInfo(name = "lastAlarm")
     var lastAlarm: String? = null,
 
-) {
+    ) {
     @PrimaryKey(autoGenerate = true)
     var taskId: Int? = null
 }

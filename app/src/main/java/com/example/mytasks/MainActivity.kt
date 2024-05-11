@@ -1,14 +1,13 @@
 package com.example.mytasks
 
-import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytasks.adapters.TaskAdapter
+import com.example.mytasks.adapters.TaskItemClickListener
+import com.example.mytasks.database.Task
 import com.example.mytasks.database.TaskDatabase
 import com.example.mytasks.database.TaskRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,7 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private lateinit var adapter: TaskAdapter
     private lateinit var viewModel: MainActivityData
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.data.observe(this) {
-            adapter = TaskAdapter(it, repository, viewModel)
+            adapter = TaskAdapter(it, repository, viewModel,supportFragmentManager)
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(this)
         }
@@ -52,8 +51,6 @@ class MainActivity : AppCompatActivity() {
         val dialogFragment = AddTaskBottomSheetDialogFragment(viewModel, repository)
         dialogFragment.show(supportFragmentManager, "AddTaskDialogFragment")
     }
-
-    
 
 
 }

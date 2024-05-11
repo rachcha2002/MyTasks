@@ -16,4 +16,8 @@ class TaskRepository(private val taskDB: TaskDatabase) {
                                     taskTime: String, taskPriority: String) {
         taskDB.getTaskDao().updateAnExistingRow(taskId, taskTitle, taskDescription, taskDate, taskTime, taskPriority)
     }
+
+    suspend fun markTaskAsComplete(taskId: Int) {
+        taskDB.getTaskDao().markTaskAsComplete(taskId)
+    }
 }

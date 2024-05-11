@@ -1,12 +1,20 @@
 package com.example.mytasks.adapters
 
+import android.app.Dialog
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.PopupMenu
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mytasks.CompletionDialogFragment
 import com.example.mytasks.MainActivityData
 import com.example.mytasks.R
 import com.example.mytasks.database.Task
@@ -19,7 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainActivityData):
+class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainActivityData,private val fragmentManager: FragmentManager):
     RecyclerView.Adapter<TaskViewHolder>(){
     var context: Context? = null
     val tasks = items
@@ -27,6 +35,7 @@ class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainAct
     val viewModel = viewModel
     private val dateFormat = SimpleDateFormat("EE dd MMM yyyy", Locale.US)
     private val inputDateFormat = SimpleDateFormat("dd-M-yyyy", Locale.US)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
@@ -37,7 +46,7 @@ class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainAct
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val currentItem = tasks[position]
 
-        holder.title.text = currentItem.taskTitle
+        holder.title.text = currentItem.taskTitle.toString()
         holder.description.text = currentItem.taskDescription
         holder.status.text = if (currentItem.isComplete) "COMPLETED" else "UPCOMING"
 
@@ -79,23 +88,47 @@ class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainAct
             when (item.itemId) {
                 R.id.menuDelete -> {
                     // Handle delete action
-                    task.taskId?.let { deleteTask(it) }
+                    context?.let { context1 ->
+                        AlertDialog.Builder(context1)
+                            .setTitle(R.string.delete_confirmation)
+                            .setMessage(R.string.sureToDelete)
+                            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                                task.taskId?.let { deleteTask(it) }
+                            }
+                            .setNegativeButton(android.R.string.cancel) { dialog, which -> dialog.dismiss() }
+                            .show()
+                    }
                     true
                 }
                 R.id.menuUpdate -> {
-                    // Handle update action
-                    //Open a dialog or activity for updating the task
+                    // Open the update fragment directly
+                    val taskId = tasks[position].taskId ?: return@setOnMenuItemClickListener true
+                    val updateFragment = UpdateTaskBottomSheetDialogFragment.newInstance(taskId,repository,viewModel)
+                    updateFragment.show(fragmentManager, "UpdateFragment")
                     true
                 }
                 R.id.menuComplete -> {
                     // Handle complete action
-                    // Update the task status as complete
-                    task.isComplete = true
-                    //repository.updateTask(task)
+                    // Show confirmation dialog before marking as complete
+                    context?.let {
+                        AlertDialog.Builder(it)
+                            .setTitle(R.string.confirmation)
+                            .setMessage(R.string.sureToMarkAsComplete)
+                            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                                updateTaskCompletion(task.taskId ?: -1)
+                                // Show the completion dialog
+                                val completionDialog = CompletionDialogFragment.newInstance()
+                                completionDialog.show(fragmentManager, "CompletionDialogFragment")
+                            }
+                            .setNegativeButton(android.R.string.cancel) { dialog, which -> dialog.dismiss() }
+                            .show()
+                    }
+
                     true
                 }
                 else -> false
             }
+
         }
         popupMenu.show()
     }
@@ -106,14 +139,6 @@ class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainAct
             withContext(Dispatchers.IO) {
                 repository.deleteTaskFromId(taskId)
             }
-            // Optionally, update UI or notify adapter after deletion
-            // Fetch the updated data after deletion
-           // val newData = repository.getAllTasksList()
-            //Log.d("New List", "After Deleting new list: $newData")
-            // Update the ViewModel with the new data
-            //withContext(Dispatchers.Main){
-                //viewModel.setData(newData)
-           // }
 
             val newData = withContext(Dispatchers.IO) {
                 repository.getAllTasksList()
@@ -124,5 +149,21 @@ class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainAct
         }
     }
 
+    private fun updateTaskCompletion(taskId: Int) {
+        CoroutineScope(Dispatchers.Main).launch {
+            Log.d("UpdateTaskCompletion", "Updating task completion with ID: $taskId")
+            withContext(Dispatchers.IO) {
+                repository.markTaskAsComplete(taskId)
+            }
+
+            val newData = withContext(Dispatchers.IO) {
+                repository.getAllTasksList()
+            }
+            // Update the ViewModel with the new data
+            viewModel.setData(newData)
+        }
+    }
+
 
 }
+
