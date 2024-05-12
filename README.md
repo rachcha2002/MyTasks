@@ -29,7 +29,6 @@ MyTask is a simple task management productivity app designed to help users list 
 - **Kotlin Coroutines**: Implements Kotlin Coroutines for asynchronous and non-blocking programming, enhancing app performance and responsiveness.
 - **Recycle Views**: Utilizes RecyclerViews for efficient and dynamic task list display, optimizing memory usage and performance.
 - **View Model**: Implements ViewModel architecture component for maintaining UI-related data consistency and handling lifecycle events, ensuring seamless user experience.
-- **Google Calendar Integration**: Integrates with Google Calendar API for syncing tasks with users' Google Calendar, providing seamless task management across devices.
 - **DatePicker**: Incorporates a DatePicker for easy selection of task dates, enhancing user convenience and usability.
 
 
