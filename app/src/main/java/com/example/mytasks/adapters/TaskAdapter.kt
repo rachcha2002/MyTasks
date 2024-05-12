@@ -45,7 +45,8 @@ class TaskAdapter (items:List<Task>,repository:TaskRepository,viewModel: MainAct
         holder.title.text = currentItem.taskTitle.toString()
         holder.description.text = currentItem.taskDescription
         holder.status.text = if (currentItem.isComplete) "COMPLETED" else "UPCOMING"
-
+        holder.time.text = "Time:${currentItem.lastAlarm}"
+        holder.priority.text = "Priority:${currentItem.priority}"
         // Set click listener for the options ImageButton
         holder.options.setOnClickListener { view ->
             showPopupMenu(view, position)

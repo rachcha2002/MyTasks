@@ -120,16 +120,16 @@
         android:text="Add an priority"
         tools:ignore="MissingPrefix" />
 
-    <EditText
+    <Spinner
+        android:id="@+id/taskPriority"
+        android:background="@drawable/btn_border"
+        android:padding="10dp"
         android:textSize="14sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:singleLine="true"
-        android:background="@drawable/btn_border"
-        android:padding="10dp"
-        android:id="@+id/taskPriority"
-        tools:ignore="MissingPrefix" />
+        android:entries="@array/priority_options" />
+
 
     <Button
         android:layout_width="match_parent"

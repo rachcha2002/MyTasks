@@ -15,5 +15,6 @@ class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val description: TextView = itemView.findViewById(R.id.description)
     val status: TextView = itemView.findViewById(R.id.status)
     val options: ImageButton = itemView.findViewById(R.id.options)
-    private val time: TextView = itemView.findViewById(R.id.time)
+    val time: TextView = itemView.findViewById(R.id.time)
+    val priority:TextView = itemView.findViewById(R.id.priorities)
 }

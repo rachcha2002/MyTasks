@@ -8,8 +8,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 import com.example.mytasks.database.TaskRepository
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +27,8 @@ class UpdateTaskBottomSheetDialogFragment(private val taskId: Int, private val r
     private lateinit var updateTaskDescription: EditText
     private lateinit var updateTaskDate: EditText
     private lateinit var updateTaskTime: EditText
-    private lateinit var updateTaskPriority: EditText
+    //private lateinit var updateTaskPriority: EditText
+    private lateinit var updateTaskPrioritySpinner:Spinner
     private lateinit var updateTaskButton: Button
     private lateinit var cancelUpdateTaskButton: Button
     private val calendar = Calendar.getInstance()
@@ -41,9 +44,14 @@ class UpdateTaskBottomSheetDialogFragment(private val taskId: Int, private val r
         updateTaskDescription = view.findViewById(R.id.upaddTaskDescription)
         updateTaskDate = view.findViewById(R.id.uptaskDate)
         updateTaskTime = view.findViewById(R.id.uptaskTime)
-        updateTaskPriority = view.findViewById(R.id.uptaskPriority)
+        //updateTaskPriority = view.findViewById<Spinner>(R.id.uptaskPriority)
         updateTaskButton = view.findViewById(R.id.updateTask)
         cancelUpdateTaskButton = view.findViewById(R.id.upcancelTask)
+        updateTaskPrioritySpinner = view.findViewById(R.id.uptaskPriority)
+        val priorityOptions = resources.getStringArray(R.array.priority_options)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, priorityOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        updateTaskPrioritySpinner.adapter = adapter
 
         updateTaskDate.setOnClickListener { showDatePicker() }
         updateTaskTime.setOnClickListener { showTimePicker() }
@@ -64,7 +72,11 @@ class UpdateTaskBottomSheetDialogFragment(private val taskId: Int, private val r
                 updateTaskDescription.setText(it.taskDescription)
                 updateTaskDate.setText(it.date)
                 updateTaskTime.setText(it.lastAlarm)
-                updateTaskPriority.setText(it.priority.toString())
+                // Find the index of the priority in the priority options array
+                val priorityOptions = resources.getStringArray(R.array.priority_options)
+                val priorityIndex = priorityOptions.indexOf(it.priority.toString())
+                // Set the selection in the Spinner
+                updateTaskPrioritySpinner.setSelection(priorityIndex)
             }
         }
     }
@@ -75,7 +87,7 @@ class UpdateTaskBottomSheetDialogFragment(private val taskId: Int, private val r
         val updatedDescription = updateTaskDescription.text.toString()
         val updatedDate = updateTaskDate.text.toString()
         val updatedTime = updateTaskTime.text.toString()
-        val updatedPriority = updateTaskPriority.text.toString()
+        val updatedPriority = updateTaskPrioritySpinner.selectedItem.toString()
 
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {

@@ -31,18 +31,48 @@
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
-                tools:ignore="MissingPrefix" />
+                tools:ignore="MissingPrefix"
+                android:layout_gravity="left|center"/>
+            <!-- SearchView for filtering data -->
+
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/calendar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end|center"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/calendar"
-            android:contentDescription="@string/calender" />
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end|center">
+
+            <!-- SearchView for filtering data -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="2"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="5dp">
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:queryHint="Date"
+                    android:textColorHint="@color/black"
+                    app:iconifiedByDefault="true" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Calendar icon -->
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/calendar"
+                android:contentDescription="@string/calender" />
+        </LinearLayout>
 
     </FrameLayout>
 
@@ -54,7 +84,7 @@
             android:id="@+id/taskRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

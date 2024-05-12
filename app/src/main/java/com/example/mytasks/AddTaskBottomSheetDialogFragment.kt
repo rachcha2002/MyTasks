@@ -17,6 +17,8 @@ import kotlinx.coroutines.withContext
 import java.util.Calendar
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -49,8 +51,18 @@ class AddTaskBottomSheetDialogFragment(private val viewModel: MainActivityData,p
 
         val addTaskTitle = view.findViewById<EditText>(R.id.addTaskTitle)
         val addTaskDescription = view.findViewById<EditText>(R.id.addTaskDescription)
-        val taskPriority = view.findViewById<EditText>(R.id.taskPriority)
+        //val taskPriority = view.findViewById<EditText>(R.id.taskPriority)
         val saveButton = view.findViewById<Button>(R.id.addTask)
+
+        val taskPriority = view.findViewById<Spinner>(R.id.taskPriority)
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.priority_options,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            taskPriority.adapter = adapter
+        }
 
         // Handle save button click
         saveButton.setOnClickListener {
@@ -58,7 +70,7 @@ class AddTaskBottomSheetDialogFragment(private val viewModel: MainActivityData,p
             val description = addTaskDescription.text.toString()
             val date = taskDateEditText.text.toString()
             val lastAlarm = taskTimeEditText.text.toString()
-            val priority = taskPriority.text.toString()
+            val priority = taskPriority.selectedItem.toString()
 
             // Create a Task object
             val task = Task(title, date, description, priority = priority, lastAlarm = lastAlarm)
