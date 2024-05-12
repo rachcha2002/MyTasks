@@ -10,6 +10,7 @@ MyTask is a simple task management productivity app designed to help users list 
 5. **Task Deletion**: Unnecessary tasks can be deleted from the list.
 6. **Sorting**: Users can sort tasks by entering a date in the search bar, which filters and displays tasks relevant to the given date.
 
+
 ## Task Priority Levels:
 - High
 - Medium
@@ -23,4 +24,13 @@ MyTask is a simple task management productivity app designed to help users list 
 5. **Delete Task**: Remove unnecessary tasks from the list.
 6. **Sort Tasks**: Enter a specific date in the search bar to filter and view tasks relevant to that date.
 
-MyTask aims to streamline task management and enhance productivity by providing a simple yet effective solution for organizing daily tasks.
+## Technology Used:
+- **Room Library with SQLite**: Utilizes Room library for local data storage using SQLite, ensuring efficient task management and data persistence.
+- **Kotlin Coroutines**: Implements Kotlin Coroutines for asynchronous and non-blocking programming, enhancing app performance and responsiveness.
+- **Recycle Views**: Utilizes RecyclerViews for efficient and dynamic task list display, optimizing memory usage and performance.
+- **View Model**: Implements ViewModel architecture component for maintaining UI-related data consistency and handling lifecycle events, ensuring seamless user experience.
+- **Google Calendar Integration**: Integrates with Google Calendar API for syncing tasks with users' Google Calendar, providing seamless task management across devices.
+- **DatePicker**: Incorporates a DatePicker for easy selection of task dates, enhancing user convenience and usability.
+
+
+MyTask aims to streamline task management and enhance productivity by providing a simple yet effective solution for organizing daily tasks with advanced features and seamless integrations.
