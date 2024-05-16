@@ -1,6 +1,6 @@
-# Description: MyTask - A Simple Task Management Productivity App
+# Description: MyTasks - A Simple Task Management Productivity App
 
-MyTask is a simple task management productivity app designed to help users list their day-to-day tasks. Users can create tasks by providing essential details such as Title, Description, Date, Time, and Priority, which consists of three stages: High, Medium, and Low. 
+MyTasks is a simple task management productivity app designed to help users list their day-to-day tasks. Users can create tasks by providing essential details such as Title, Description, Date, Time, and Priority, which consists of three stages: High, Medium, and Low. 
 
 ## Features:
 1. **Task Creation**: Users can create tasks by specifying the Title, Description, Date, Time, and Priority.
